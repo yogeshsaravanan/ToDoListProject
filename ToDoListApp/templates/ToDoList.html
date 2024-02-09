@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>ToDoList</title>
+{% endblock title %}
+
+
+{% block  h1 %}
+<h1>{{welcome_text}}<h1>
+{% endblock h1 %}
+
+
+{% block  content %}
+<div class = 'container'>
+    <div class = 'container'>
+    <form>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">Task Name</span>
+          <input type="text" class="form-control" placeholder="Task Name"aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">Assignee</span>
+            <input type="text" class="form-control" placeholder="Assignee"aria-describedby="basic-addon1">
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="id_status">Status</span>    
+            <select name="status" id="id_status" class="form-control">
+                <option value="" selected="">---------</option>
+                <option value="TO_DO">To do</option>
+                <option value="DEFINED">Defined</option>
+                <option value="IN_PROGRESS">In Progress</option>
+                <option value="COMPLETED">Completed</option>
+            </select>
+        </div>
+          
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">ETA</span>
+            <input type="text" class="form-control" placeholder="YYYY-MM-DD"aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">Risk</label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Task</button>
+      </form>
+    </div>
+      <br>
+    <table class="table table-bordered">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Task Name</th>
+            <th scope="col">Assignee</th>
+            <th scope="col">Status</th>
+            <th scope="col">ETA</th>
+            <th scope="col">Risk</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        
+        <tbody>
+          {% for obj in tasks %}
+            {% if obj.risk_flag %}
+                <tr class="table-warning">
+            {%elif obj.status == 'COMPLETED'%}
+                <tr class="table-success">
+            {%else%}
+                <tr>
+             {% endif %}
+                    <td>{{obj.id}}</td>
+                    <td>{{obj.task}}</td>
+                    <td>{{obj.assignee}}</td>
+                    <td>{{obj.status}}</td>
+                    <td>{{obj.ETA}}</td>
+                    <td>{{obj.risk_flag}}</td>
+                    <td>EDIT</td>
+                    <td>DELETE</td>
+                </tr>
+          {% endfor %}
+        </tbody>
+        
+      </table>
+</div>
+{% endblock content %}
+
+  
