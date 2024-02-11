@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>Edit task</title>
+{% endblock title %}
+
+
+{% block  content %}
+<form method="POST">
+    {% csrf_token %}
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Task Name</span>
+        <input type="text" class="form-control" placeholder="{{task.task}}" value="{{task.task}}" aria-describedby="basic-addon1" name="task">
+      </div>
+      <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">Assignee</span>
+          <input type="text" class="form-control" placeholder={{task.assignee}} value="{{task.assignee}}" aria-describedby="basic-addon1" name="assignee">
+      </div>
+
+      <div class="input-group mb-3">
+          <span class="input-group-text" id="id_status">Status</span>    
+          <select name="status" id="id_status" class="form-control" name ="status" placeholder={{task.status}} value="{{task.status}}">
+              <option value="TO_DO">TO_DO</option>
+              <option value="DEFINED">DEFINED</option>
+              <option value="IN_PROGRESS">IN_PROGRESS</option>
+              <option value="COMPLETED">COMPLETED</option>
+          </select>
+      </div>
+        
+      <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">ETA</span>
+          <input type="text" class="form-control" aria-describedby="basic-addon1" name="ETA" placeholder="YYYY-MM-DD" >
+      </div>
+      <div class="input-group mb-3">
+          <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="defaultCheck1" name="risk_flag">
+              <label class="form-check-label" for="defaultCheck1">Risk</label>
+          </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Update Task</button>
+    </form>
+{% endblock content %}

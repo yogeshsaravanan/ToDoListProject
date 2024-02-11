@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+<title>Task Manager</title>
+{% endblock title %}
+
+
+{% block  content %}
+<div class='container'>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body, html {
+          margin: 0;
+          padding: 0;
+          height: 100%;
+          overflow: hidden; /* Disable scrolling */
+        }
+        
+        .bg-image {
+          background-image: url('background.jpg');
+          background-size: cover;
+          background-position: center center;
+          height: 100%;
+          width: 100%;
+          position: fixed;
+          top: 0;
+          left: 0;
+          z-index: -1; /* Ensure the background is behind other content */
+          filter: blur(0px);
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+            z-index: -1; /* Place the overlay behind other content */
+          }
+        .content {
+            text-align: center;
+            color: white;
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
+      </style>
+      </head>
+      <body>
+    <div class="container-fluid p-0">
+        <!-- Image as a background -->
+        <div class="bg-image" style="background-image: url('{% static 'images/white_1.jpg' %}');"> </div>
+
+        <div class="container">
+              <!-- Content on top of the image -->
+            <div class="overlay"></div>
+            <div class="content">
+                <h2>Welcome to Task Manager</h2>
+                <h4>Plan Your Day Better</h4>
+                <br>
+                <a href="{% url 'ToDoList' %}"><button type="submit" class="btn btn-primary shadow">Let's Get Started</button></a>
+            </div> 
+        </div>
+    </div>
+      
+      
+      <!-- Bootstrap JS and dependencies (Optional) -->
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</div>
+{% endblock content %}

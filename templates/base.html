@@ -6,16 +6,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% block title %}
     {% endblock title %}
+    <style>
+      body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden; /* Disable scrolling */
+      }
+      .overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black overlay */
+          z-index: -1; /* Place the overlay behind other content */
+        }
+    </style>
+    </head>
+    <body>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-          <a class="navbar-brand" href="{% url 'ToDoList' %}"><img src ="{% static 'images/logo.png' %}" alt="ToDoList" style="width: 80px; height: auto;"></a>
+          <a class="navbar-brand" href="{% url 'index' %}"><img src ="{% static 'images/logo.png' %}" alt="ToDoList" style="width: 25px; height: auto;"></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-              <a class="nav-link" aria-current="page" href="{% url 'ToDoList' %}">Home</a>
+              <a class="nav-link" aria-current="page" href="{% url 'index' %}">Home</a>
+              <a class="nav-link" aria-current="page" href="{% url 'ToDoList' %}">ToDoList</a>
               <a class="nav-link" href="{% url 'office' %}">Office Work</a>
               <a class="nav-link" href="{% url 'physical' %}">Physical</a>
             </div>
@@ -31,7 +51,6 @@
         {%block content %}
         {% endblock content %}
         <br>
-        <h5>work in progress..</h5>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   </body>

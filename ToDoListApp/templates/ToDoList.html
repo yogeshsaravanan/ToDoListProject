@@ -13,6 +13,13 @@
 {% block  content %}
 <div class = 'container'>
     <div class = 'container'>
+    <br>
+    {% for message in messages%}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      {{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
     <form method="POST">
       {% csrf_token %}
         <div class="input-group mb-3">
@@ -37,7 +44,7 @@
           
         <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">ETA</span>
-            <input type="text" class="form-control" placeholder="YYYY-MM-DD"aria-describedby="basic-addon1" name="ETA">
+            <input type="text" class="form-control" placeholder="YYYY-MM-DD" aria-describedby="basic-addon1" name="ETA">
         </div>
         <div class="input-group mb-3">
             <div class="form-check">
@@ -52,39 +59,54 @@
     <table class="table table-bordered">
         <thead class="table-dark">
           <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Task Name</th>
-            <th scope="col">Assignee</th>
-            <th scope="col">Status</th>
-            <th scope="col">ETA</th>
-            <th scope="col">Risk</th>
-            <th scope="col">Edit</th>
-            <th scope="col">Delete</th>
+            <th class="col-3">Task Name</th>
+            <th class="col-2">Assignee</th>
+            <th class="col-1">Status</th>
+            <th class="col-2">ETA</th>
+            <th class="col-1">Risk</th>
+            <th class="col-1">Edit</th>
+            <th class="col-1">Delete</th>
           </tr>
         </thead>
-        
-        <tbody>
-          {% for obj in tasks %}
-            {% if obj.risk_flag %}
-                <tr class="table-warning">
-            {%elif obj.status == 'COMPLETED'%}
-                <tr class="table-success">
-            {%else%}
-                <tr>
-             {% endif %}
-                    <td>{{obj.id}}</td>
-                    <td>{{obj.task}}</td>
-                    <td>{{obj.assignee}}</td>
-                    <td>{{obj.status}}</td>
-                    <td>{{obj.ETA}}</td>
-                    <td>{{obj.risk_flag}}</td>
-                    <td>EDIT</td>
-                    <td>DELETE</td>
-                </tr>
-          {% endfor %}
-        </tbody>
+        {% if tasks%}
+          <tbody>
+            {% for obj in tasks %}
+              {% if obj.risk_flag %}
+                  <tr class="table-warning">
+              {%elif obj.status == 'COMPLETED'%}
+                  <tr class="table-success">
+              {%else%}
+                  <tr>
+              {% endif %}
+                      <td class="col-5">{{obj.task}}</td>
+                      <td class="col-2">{{obj.assignee}}</td>
+                      <td class="col-1">{{obj.status}}</td>
+                      <td class="col-2">{{obj.ETA}}</td>
+                      <td class="col-1">{{obj.risk_flag}}</td>
+                      <td class="col-1"><a href="{% url 'edit_task' obj.id %}"><button type="button" class="btn btn-secondary">Edit</button></a></td>
+                      <td class="col-1"><a href="{% url 'delete_task' obj.id %}"><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal">
+                        Delete
+                      </button>
+                    </a></td>
+                  </tr>
+            {% endfor %}
+          </tbody>
+          {% endif %}
         
       </table>
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <li class="page-item"><a class="page-link" href="?pg=1"><<</a></li>
+          {% if tasks.has_previous %}
+            <li class="page-item"><a class="page-link" href="?pg={{tasks.previous_page_number}}">{{tasks.previous_page_number}}</a></li>
+          {% endif %}
+          <li class="page-item"><a class="page-link page-item active">{{tasks.number}}</a></li>
+          {% if tasks.has_next %}
+            <li class="page-item"><a class="page-link" href="?pg={{tasks.next_page_number}}">{{tasks.next_page_number}}</a></li>
+          {% endif %}
+          <li class="page-item"><a class="page-link" href="?pg={{tasks.paginator.num_pages}}">>></a></li>
+        </ul>
+      </nav>
 </div>
 {% endblock content %}
 
