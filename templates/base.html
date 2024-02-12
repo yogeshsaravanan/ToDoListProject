@@ -40,6 +40,22 @@
               <a class="nav-link" href="{% url 'physical' %}">Physical</a>
             </div>
           </div>
+        
+          {% if user.is_authenticated %}
+          <span class="navbar-text">
+              Welcome, <strong>{{user.username}}</strong>  
+          </span>
+          <a href ={% url 'logout'%}>
+            <button class="btn btn-danger mr-2" type="submit">Logout</button>
+          </a>
+          {% else %}
+          <a href ="{% url 'login' %}">
+              <button class="btn btn-success mr-2 my-2 my-sm-0 " type="submit">Login</button>
+          </a>
+          <a href ="{% url 'register' %}">
+              <button class="btn btn-primary mr-2 my-2 my-sm-0 " type="submit">Register</button>
+          </a>
+          {% endif %}
         </div>
       </nav>
 </head>
