@@ -22,7 +22,9 @@ SECRET_KEY ='django-insecure-e5eu5t!as9xq7!4bxxy5y7l7rbo9bkdn-(f2qeo*-^v(+29xg6'
 # DEBUG = env('DEBUG')
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["localhost","127.0.0.1","web-production-8138.up.railway.app","taskmanager.ai.railway.app"]
+
+CSRF_TRUSTED_ORIGINS = ['web-production-8138.up.railway.app']
 
 
 # Application definition
@@ -42,6 +44,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleaware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
