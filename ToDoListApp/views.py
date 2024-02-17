@@ -18,6 +18,7 @@ def todolist(request):
         return redirect('ToDoList')
     else:    
         tasks = ToDoList.objects.filter(manage=request.user)
+        # tasks = ToDoList.objects.all()
         paginator =Paginator(tasks,5)
         page=request.GET.get('pg')
         tasks=paginator.get_page(page)
