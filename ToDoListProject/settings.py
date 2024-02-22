@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'ToDoListApp',
     'users_app',
     'crispy_forms',
-    'crispy_bootstrap5'
+    'crispy_bootstrap5',
+    'CheckListAPP'
 ]
 
 MIDDLEWARE = [

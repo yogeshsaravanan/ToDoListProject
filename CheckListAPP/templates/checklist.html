@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>CheckList</title>
+{% endblock title %}
+
+{% block  content %}
+<div class = 'container'>
+    <div class = 'container'>
+        <br>
+        {% for message in messages%}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            {% comment %} <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Task Name</span>
+                <input type="text" class="form-control" placeholder="Task Name"aria-describedby="basic-addon1" name="task">
+            </div> {% endcomment %}
+            <button type="submit" class="btn btn-primary">Add Task</button>    
+        </form>
+    </div>
+    <div class = 'container'>
+        <br>
+    <table class="table table-bordered">
+        <thead class="table-dark">
+          <tr>
+            <th class="col-3">Task Name</th>
+            <th class="col-1">From</th>
+            <th class="col-1">To</th>
+            <th class="col-1">Completed</th>
+            <th class="col-1">Change</th>
+            <th class="col-1">Delete</th>
+          </tr>
+        </thead>
+        {% if tasks%}
+          <tbody>
+            {% for obj in tasks %}
+              {%if obj.completed%}
+                  <tr class="table-success">
+              {%else%}
+                  <tr>
+              {% endif %}
+                      <td class="col-3">{{obj.task}}</td>
+                      <td class="col-1">{{obj.start_time}}</td>
+                      <td class="col-1">{{obj.end_time}}</td>
+                      <td class="col-1">{{obj.completed}}</td>
+                      <td class="col-1"><a href="{% url 'mark_completed' obj.id %}"><button type="button" class="btn btn-secondary">Mark as Completed</button></a></td>
+                      <td class="col-1"><a href="{% url 'delete_checklist' obj.id %}"><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal">
+                        Delete
+                      </button>
+                    </tr>
+            {% endfor %}
+          </tbody>
+          {% endif %}
+        
+      </table>
+    </div> 
+</div>        
+{% endblock content %}
+
