@@ -17,11 +17,11 @@ def checklist(request):
             instance.save()
         return redirect('checklist')
     else:
-        form = CheckListForm()
-        return render(request, 'checklist.html', {'form': form})
-        # task = CheckList.objects.all()
-        # context = {'welcome_text':'welcome to checklist','tasks':task}
-        # return render(request,'checklist.html',context)
+        # task = CheckListForm()
+        # return render(request, 'checklist.html', {'tasks': task})
+        task = CheckList.objects.all()
+        context = {'welcome_text':'welcome to checklist','tasks':task}
+        return render(request,'checklist.html',context)
     
 @login_required    
 def del_checklist(request,task_id):
@@ -33,9 +33,20 @@ def del_checklist(request,task_id):
 def mark_completed(request,task_id):
     try:
         task= CheckList.objects.get(pk=task_id)
-        
         form =CheckListForm(request.POST or None ,instance=task)
         task.completed=True
+        if form.is_valid:
+            form.save()
+    except:
+        return redirect('checklist')
+    return redirect('checklist')
+
+def not_completed(request,task_id):
+    try:
+        task= CheckList.objects.get(pk=task_id)
+        
+        form =CheckListForm(request.POST or None ,instance=task)
+        task.completed=False
         if form.is_valid:
             form.save()
     except:
