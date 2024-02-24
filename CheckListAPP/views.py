@@ -19,7 +19,7 @@ def checklist(request):
     else:
         # task = CheckListForm()
         # return render(request, 'checklist.html', {'tasks': task})
-        task = CheckList.objects.all()
+        task = CheckList.objects.filter(manage=request.user)
         context = {'welcome_text':'welcome to checklist','tasks':task}
         return render(request,'checklist.html',context)
     
