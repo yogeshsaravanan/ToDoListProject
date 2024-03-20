@@ -6,15 +6,20 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 import numpy as np
 
+
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 
 import os
 import pickle
 
-model = load_model(r'C:\e\Taskmate_running\ToDoListProject\ChatBot\trained_model.h5')
+current_directory = os.path.dirname(__file__)
+model_path = os.path.join(current_directory, "trained_model.h5")
+token_path = os.path.join(current_directory, "tokenizer.pkl")
+model = load_model(model_path)
 
-with open(r'C:\e\Taskmate_running\ToDoListProject\ChatBot\tokenizer.pkl', 'rb') as f:
+
+with open(token_path, 'rb') as f:
     tokenizer = pickle.load(f)
 
 def generate_suggestions(user_input,top_n=5):
